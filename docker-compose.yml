@@ -4,8 +4,11 @@ services:
     build: api/.
     depends_on:
       - postgres
+    env_file: .env
     environment:
-      DATABASE_URL: postgres://user:pass@postgres:5432/db
+      DB_USER: "${DB_USER}"
+      DB_PASS: "${DB_PASS}"
+      DB_NAME: "${DB_NAME}"
       NODE_ENV: production
     ports:
       - "3000:3000"
@@ -29,7 +32,8 @@ services:
     image: postgres:10.4
     ports:
       - "35432:5432"
+    env_file: .env
     environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: pass
-      POSTGRES_DB: db
+      POSTGRES_USER: "${DB_USER}"
+      POSTGRES_PASSWORD: "${DB_PASS}"
+      POSTGRES_DB: "${DB_NAME}"
