@@ -1,8 +1,25 @@
 'use strict';
 
+const Result = require('./db/sequelize').Result
+
 let controllers = {
-    hi: function(req, res) {
-        res.json({"status": "ok"});
+    list: function(req, res) {
+        Result.findAll().then(results => res.json(results))
+    },
+    read: function(req, res) {
+        Result.findOne({where: {"Id": req.params.id}}).then(results => {
+            if(results === null) {
+                res.status(404).send('Not found');
+            } else {
+                res.json(results)
+            }
+        })
+    },
+    create: function(req, res) {
+        Result.create(req.body).then(results => {
+            console.log("results", results)
+            res.status(201).send("Result created.")
+        })
     }
 }
 
