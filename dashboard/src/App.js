@@ -8,8 +8,6 @@ import AddResultModal from './AddResultModal'
 
 import axios from 'axios';
 
-import './App.css';
-
 const API_URL = 'http://127.0.0.1:3000';
 
 export default class App extends Component {

@@ -83,7 +83,8 @@ export default class AddResultModal extends Component {
                     ScanningAt: null,
                     FinishedAt: null,
                     Findings: []
-                }
+                },
+                errorMessage: null
             })
             this.props.onConfirm()
         }, (error) => {
