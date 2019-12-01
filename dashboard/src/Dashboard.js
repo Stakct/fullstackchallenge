@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-import axios from 'axios';
-
 import {
   Grid,
   Label
@@ -10,28 +8,14 @@ import {
 import ResultList from './ResultList'
 import FindingList from './FindingList'
 
-const API_URL = 'http://127.0.0.1:3000';
-
 export default class Dashboard extends Component {
     constructor(props) {
         super(props);
         this.onSelectItem = this.onSelectItem.bind(this)
 
         this.state = {
-            scanResults: [],
             selectedItemFindings: null
         }
-    }
-
-    componentDidMount() {
-        this.loadScanResults()
-    }
-
-    loadScanResults() {
-        axios.get(`${API_URL}/results`).then(res => {
-            const scanResults = res.data;
-            this.setState({ scanResults });
-        })  
     }
 
     onSelectItem(selectedItemFindings) {
@@ -43,7 +27,7 @@ export default class Dashboard extends Component {
             <Grid padded columns={2}>
                 <Grid.Row >
                     <Grid.Column>
-                        <ResultList results={this.state.scanResults} onSelectItem={this.onSelectItem}/>
+                        <ResultList results={this.props.scanResults} onSelectItem={this.onSelectItem}/>
                     </Grid.Column>
                     <Grid.Column>
                         {(this.state.selectedItemFindings === null)?(

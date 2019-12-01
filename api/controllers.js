@@ -17,7 +17,6 @@ let controllers = {
     },
     create: function(req, res) {
         Result.create(req.body).then(results => {
-            console.log("results", results)
             res.status(201).send("Result created.")
         })
     }

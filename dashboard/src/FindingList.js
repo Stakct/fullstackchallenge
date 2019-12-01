@@ -5,7 +5,7 @@ export default class FindingList extends Component {
     render(){
         const { findings } = this.props;
 
-        if(findings.length == 0) {
+        if(findings.length === 0) {
             return (
                 <Label>No findings for the selected Report.</Label>
             )
@@ -37,7 +37,7 @@ export default class FindingList extends Component {
                                         {finding.metadata.severity}
                                     </Table.Cell>
                                     <Table.Cell>
-                                        {finding.location.path}
+                                        {finding.location.path} on line {finding.location.line}
                                     </Table.Cell>
                                 </Table.Row>
                             )

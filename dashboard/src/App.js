@@ -6,32 +6,53 @@ import Dashboard from './Dashboard';
 import NavBar from './Nav'
 import AddResultModal from './AddResultModal'
 
+import axios from 'axios';
+
 import './App.css';
 
+const API_URL = 'http://127.0.0.1:3000';
+
 export default class App extends Component {
-  constructor(props) {
-    super(props);
+    constructor(props) {
+        super(props);
 
-    this.state = {
-      modalOpen: false
+        this.state = {
+            scanResults: [],
+            modalOpen: false
+        }
     }
-  }
+  
+    componentDidMount() {
+        this.loadScanResults()
+    }
 
-  addResult = (e) => {
-    this.setState({ modalOpen: true })
-  }
+    loadScanResults() {
+        axios.get(`${API_URL}/results`).then(res => {
+            const scanResults = res.data;
+            this.setState({ scanResults });
+        })  
+    }
 
-  closeModal = (e) => {
-    this.setState({ modalOpen: false })
-  }
+    addResult = (e) => {
+        this.setState({ modalOpen: true })
+    }
 
-  render() {
-    return (
-      <Container fluid>
-        <NavBar onAddResult={this.addResult}/>
-        <Dashboard />
-        <AddResultModal modalOpen={this.state.modalOpen} onCancel={this.closeModal}/>
-      </Container>
-    );
-  }
+    closeModal = (e) => {
+        this.setState({ modalOpen: false })
+    }
+
+    onConfirm = (e) => {
+        this.loadScanResults()
+        this.setState({ modalOpen: false })
+    }
+
+    render() {
+        return (
+            <Container fluid>
+                <NavBar onAddResult={this.addResult}/>
+                <Dashboard scanResults={this.state.scanResults}/>
+                <AddResultModal modalOpen={this.state.modalOpen} onCancel={this.closeModal} onConfirm={this.onConfirm}/>
+            </Container>
+        )
+    }
 }
