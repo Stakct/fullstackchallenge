@@ -12,7 +12,12 @@ To start the project just run `docker-compose up`
 
 ### Prerequisites
 
-To run this project you need *Docker Engine* installed in your machine
+To run this project you need *Docker Engine* installed in your machine.
+
+If you are using OSX to run this project please pay attention.
+By default, you can share files with your docker containers in /Users/, /Volumes/, /private/, and /tmp directly. If you have cloned this project into a different folder, use the File sharing tab in Docker preferences.
+
+**Whale menu -> Preferences -> File sharing.**
 
 ## Built With
 
