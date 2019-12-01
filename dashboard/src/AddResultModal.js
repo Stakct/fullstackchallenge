@@ -47,6 +47,7 @@ export default class AddResultModal extends Component {
         this.handleDPScanningChange = this.handleDPScanningChange.bind(this)
         this.handleDPFinishedChange = this.handleDPFinishedChange.bind(this)
         this.addFinding = this.addFinding.bind(this)
+        this.onCancel = this.onCancel.bind(this)
     }
 
     confirmClick = (event, data) => {
@@ -83,6 +84,14 @@ export default class AddResultModal extends Component {
                     ScanningAt: null,
                     FinishedAt: null,
                     Findings: []
+                },
+                finding: {
+                    type: '',
+                    ruleId: '',
+                    path: '',
+                    line: '',
+                    description: '',
+                    severity: ''
                 },
                 errorMessage: null
             })
@@ -175,10 +184,33 @@ export default class AddResultModal extends Component {
             report: currentState
         })
     }
+
+    onCancel() {
+        this.setState({
+            report: {
+                RepositoryName: '',
+                Status: '',
+                QueuedAt: null,
+                ScanningAt: null,
+                FinishedAt: null,
+                Findings: []
+            },
+            finding: {
+                type: '',
+                ruleId: '',
+                path: '',
+                line: '',
+                description: '',
+                severity: ''
+            },
+            errorMessage: null
+        })
+        this.props.onCancel()
+    }
     
     render() {
         return (
-        <Modal open={this.props.modalOpen}>
+        <Modal open={this.props.modalOpen} size="large">
             <Modal.Header>Add a Scan Report</Modal.Header>
             <Modal.Content>
                 <Segment>
@@ -206,7 +238,7 @@ export default class AddResultModal extends Component {
                         />
                         <Form.Group widths='equal'>
                             <Form.Field>
-                                <Label>Queued At</Label>
+                                <Label pointing="right">Queued At</Label>
                                 <DatePicker
                                     name="QueuedAt"
                                     selected={this.state.report.QueuedAt}
@@ -219,7 +251,7 @@ export default class AddResultModal extends Component {
                                 />
                             </Form.Field>
                             <Form.Field>
-                                <Label>Scanning At</Label>
+                                <Label pointing="right">Scanning At</Label>
                                 <DatePicker
                                     name="ScanningAt"
                                     selected={this.state.report.ScanningAt}
@@ -232,7 +264,7 @@ export default class AddResultModal extends Component {
                                 />
                             </Form.Field>
                             <Form.Field>
-                                <Label>Finished At</Label>
+                                <Label pointing="right">Finished At</Label>
                                 <DatePicker
                                     name="FinishedAt"
                                     selected={this.state.report.FinishedAt}
@@ -291,14 +323,14 @@ export default class AddResultModal extends Component {
                                         <Form.Select
                                             fluid
                                             name="severity"
-                                            selected={this.state.finding.severity}
+                                            value={this.state.finding.severity}
                                             onChange={this.handleFindingChange}
                                             options={[
-                                                { text: 'Please select the severity', value: '' },
                                                 { text: 'HIGH', value: 'HIGH' },
                                                 { text: 'MEDIUM', value: 'MEDIUM' },
                                                 { text: 'LOW', value: 'LOW' }
                                             ]}
+                                            placeholder="Severity"
                                         />
                                     </Table.Cell>
                                     <Table.Cell>
@@ -331,7 +363,7 @@ export default class AddResultModal extends Component {
                                 </Table.Row>
                                 {this.state.report.Findings.map((finding, index) => {
                                     return (
-                                        <Table.Row>
+                                        <Table.Row key={index}>
                                             <Table.Cell>
                                                 {finding.type}
                                             </Table.Cell>
@@ -380,7 +412,7 @@ export default class AddResultModal extends Component {
                     type='button'
                     icon='remove'
                     labelPosition='right'
-                    onClick={this.props.onCancel}
+                    onClick={this.onCancel}
                     content='Cancel'
                 />
                 <Button 

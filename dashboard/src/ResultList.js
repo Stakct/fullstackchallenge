@@ -15,12 +15,12 @@ export default class ResultList extends Component {
     getTimestampByStatus(result) {
         switch(result.Status) {
             case 'Queued':
-                return moment.utc(result.QueuedAt).format('DD-MM-YYYY HH:mm:ss')
+                return moment(result.QueuedAt).format('DD-MM-YYYY HH:mm:ss')
             case 'In Progress':
-                return moment.utc(result.ScanningAt).format('DD-MM-YYYY HH:mm:ss')
+                return moment(result.ScanningAt).format('DD-MM-YYYY HH:mm:ss')
             case 'Success':
             case 'Failure':
-                return moment.utc(result.FinishedAt).format('DD-MM-YYYY HH:mm:ss')
+                return moment(result.FinishedAt).format('DD-MM-YYYY HH:mm:ss')
             default:
                 return 'Invalid Scan Result'
         }
@@ -35,6 +35,11 @@ export default class ResultList extends Component {
     render(){
         const { results } = this.props;
         
+        if(results.length === 0) {
+            return (
+                <Label>No scan result found, use the Add Result button to add some.</Label>
+            )
+        }
         return (
             <List>
                 {results.map((result, index) => {
