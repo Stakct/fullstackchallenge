@@ -10,6 +10,8 @@ The frontend exercise requires creating a simple app using ReactJS which is a da
 
 To start the project just run `docker-compose up`
 
+The web app is reachable using the address `http://127.0.0.1:3001`, the API is reachable using the address `http://127.0.0.1:3000`, you can also use the port 35432 to connect your Postgres client.
+
 ### Prerequisites
 
 To run this project you need *Docker Engine* installed in your machine.
