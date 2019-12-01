@@ -3,9 +3,7 @@ import {
     Button,
     Modal,
     Form,
-    Grid,
     Header,
-    Message,
     Segment
 } from 'semantic-ui-react'
 
@@ -39,7 +37,6 @@ export default class AddResultModal extends Component {
                         <Button color="blue" fluid size="large">Login</Button>
                     </Form>
                 </Segment>
-                <Message>Not registered yet? <a href="#">Sign Up</a></Message>
             </Modal.Content>
             <Modal.Actions>
                 <Button
